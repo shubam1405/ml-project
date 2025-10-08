@@ -22,10 +22,12 @@ from src.utils import save_object,evaluate_models
 @dataclass
 class ModelTrainerConfig:
     trained_model_file_path=os.path.join("artifacts","model.pkl")
+    #Just a configuration class to store the path where the trained model will be saved.
 
 class ModelTrainer:
     def __init__(self):
         self.model_trainer_config=ModelTrainerConfig()
+        #self.model_trainer_config.trained_model_file_path → will be "artifacts/model.pkl".
 
 
     def initiate_model_trainer(self,train_array,test_array):

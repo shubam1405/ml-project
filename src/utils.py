@@ -19,6 +19,23 @@ def save_object(file_path, obj):
         with open(file_path, "wb") as file_obj:
             pickle.dump(obj, file_obj)
 
+            '''
+            
+            os.path.dirname(file_path) → Get the folder from the full file path.
+
+            os.makedirs(..., exist_ok=True) → Create the folder if it doesn’t exist.
+
+            with open(file_path, "wb") as file_obj: → Open file in write-binary mode.
+
+            pickle.dump(obj, file_obj) → Save the Python object (like a model or preprocessor) to a file.
+
+            ✅ This is used to save your trained model or preprocessing object for future use.
+                        
+            
+            
+            
+            '''
+
     except Exception as e:
         raise CustomException(e, sys)
     
@@ -57,6 +74,14 @@ def load_object(file_path):
     try:
         with open(file_path, "rb") as file_obj:
             return pickle.load(file_obj)
+        '''
+        file_path → Path of the .pkl file (saved model or preprocessor).
+
+        Opens the file in read-binary mode.
+
+        Returns the object stored in the file (like the trained model).
+                
+        '''
 
     except Exception as e:
         raise CustomException(e, sys)

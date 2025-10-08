@@ -12,15 +12,16 @@ from src.exception import CustomException
 from src.logger import logging
 import os
 
-from src.utils import save_object
+from src.utils import save_object  # → Saves objects like models or preprocessors as .pkl files.
 
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path=os.path.join('artifacts',"proprocessor.pkl")
-
+    #preprocessor_obj_file_path → Path where the preprocessing object will be saved.
 class DataTransformation:
     def __init__(self):
         self.data_transformation_config=DataTransformationConfig()
+        #Initializes the configuration so the class knows where to save the preprocessor
 
     def get_data_transformer_object(self):
         '''
@@ -105,7 +106,12 @@ class DataTransformation:
                 input_feature_train_arr, np.array(target_feature_train_df)
             ]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
+            '''
+            np.c_[] → Combines arrays column-wise.
 
+            Now both train_arr and test_arr have features + target together, ready for ML
+            
+            '''
             logging.info(f"Saved preprocessing object.")
 
             save_object(
@@ -115,10 +121,13 @@ class DataTransformation:
 
             )
 
+            #Saves the preprocessing object so we can use it later for new data without retraining
+
             return (
                 train_arr,
                 test_arr,
                 self.data_transformation_config.preprocessor_obj_file_path,
             )
+        #Returns transformed train/test arrays and the path to the saved preprocessor.
         except Exception as e:
             raise CustomException(e,sys)
